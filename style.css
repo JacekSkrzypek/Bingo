@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    background: #444;
+    display: flex;
+    justify-content: center;
+}
+
+#bingo {
+    width: 95%;
+    background: #aaa;
+    height: 40rem;
+    display: grid;
+    font-size: 0.9rem;
+}
+
+.element {
+    width: 100%;
+    padding: 1px;
+    border: #444 1px solid;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.element--selected {
+    background: #cf4848;
+
+}
+
+.element--winning {
+    background: #54a144;
+
+
+}
