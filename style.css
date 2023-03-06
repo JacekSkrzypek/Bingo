@@ -1,41 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+:root {
+  --bingo-border-radius: 0.8rem;
+}
+
+.hfeed.site {
+  overflow: hidden;
 }
 
 body {
-    width: 100%;
-    background: #444;
-    display: flex;
-    justify-content: center;
+  gap: 1rem;
+  height: 100vh;
+  background: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(131, 58, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(186, 64, 64, 1) 53%,
+    rgba(252, 176, 69, 1) 100%
+  );
+}
+
+#title {
+  font-size: 2.2rem;
+  background: -webkit-linear-gradient(45deg, #5bd9ff, #70e96c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #bingo {
-    width: 95%;
-    background: #aaa;
-    height: 40rem;
-    display: grid;
-    font-size: 0.9rem;
+  width: 95%;
+  background: #aaa;
+  height: max-content;
+  display: grid;
+  overflow: hidden;
+  border: #4c5380 1px solid;
+  border-radius: var(--bingo-border-radius);
+  background: rgb(131, 58, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(111, 169, 255, 1) 0%,
+    rgba(142, 108, 255, 1) 100%
+  );
 }
 
 .element {
-    width: 100%;
-    padding: 1px;
-    border: #444 1px solid;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-size: 0.7rem;
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 1px;
+  border: #4c5380 1px solid;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.element--first-edge {
+  border-top-left-radius: var(--bingo-border-radius);
+}
+
+.element--second-edge {
+  border-top-right-radius: var(--bingo-border-radius);
+}
+
+.element--third-edge {
+  border-bottom-left-radius: var(--bingo-border-radius);
+}
+
+.element--fourth-edge {
+  border-bottom-right-radius: var(--bingo-border-radius);
+}
+
+.element p {
+  word-wrap: break-word;
 }
 
 .element--selected {
-    background: #cf4848;
-
+  background: #cf4848;
 }
 
 .element--winning {
-    background: #54a144;
+  background: #30e4a8;
+  transition: all 0.3s ease;
+}
 
+@media screen and (min-width: 500px) {
+  #bingo {
+    padding: 2rem;
+    max-width: 80rem;
+    border: none;
+  }
 
+  .element {
+    font-size: 1.5rem;
+    min-height: 8rem;
+  }
+
+  #title {
+    font-size: 4rem;
+  }
 }
