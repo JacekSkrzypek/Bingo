@@ -1,47 +1,46 @@
-import { columns, bingoValues, specialTitle } from "./constants.js";
+import { columns, bingoValues } from "./constants.js";
 
 const usedNumbers = [];
 const winning = [];
 
-const bingo = document.getElementById("bingo");
-
-if(specialTitle) {
-  const title = document.getElementById("title");
-  title.textContent = specialTitle;
-}
-
-bingo.style.setProperty(
-  "grid-template-columns",
-  "repeat(" + columns + ", "+ 1 / columns +"fr )"
-);
-
-for (let i = 0; i < columns * columns; i++) {
-  const element = document.createElement("div");
-  element.classList.add("element");
-  element.id = i;
-  element.addEventListener("click", () => {
-    clickElement(i);
-  });
-
-  if(i === 0) {
-    element.classList.add("element--first-edge");
-  } else if (i === columns - 1) {
-    element.classList.add("element--second-edge");
-  } else if (i === columns * columns - columns) {
-    element.classList.add("element--third-edge");
-  } else if (i === columns * columns - 1) {
-    element.classList.add("element--fourth-edge");
-  }
-
+export const CreateBingo = () => {
+  const bingo = document.getElementById("bingo");
   
-
-  const value = document.createElement("p");
-  value.classList.add("value");
-  value.innerText = bingoValues[getValue()];
-
-  element.append(value);
-  bingo.append(element);
+  bingo.style.setProperty(
+    "grid-template-columns",
+    "repeat(" + columns + ", 1fr )"
+  );
+  
+  for (let i = 0; i < columns * columns; i++) {
+    const element = document.createElement("div");
+    element.classList.add("element");
+    element.id = i;
+    element.addEventListener("click", () => {
+      clickElement(i);
+    });
+  
+    if(i === 0) {
+      element.classList.add("element--first-edge");
+    } else if (i === columns - 1) {
+      element.classList.add("element--second-edge");
+    } else if (i === columns * columns - columns) {
+      element.classList.add("element--third-edge");
+    } else if (i === columns * columns - 1) {
+      element.classList.add("element--fourth-edge");
+    }
+  
+    
+  
+    const value = document.createElement("p");
+    value.classList.add("value");
+    value.innerText = bingoValues[getValue()];
+  
+    element.append(value);
+    bingo.append(element);
+  }
 }
+
+
 
 function getValue() {
   const elementsLength = bingoValues.length;
@@ -129,5 +128,6 @@ function selectWinningElements(winningId) {
     element.classList.add("element--winning");
   }
 }
+
 
 

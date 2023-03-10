@@ -5,11 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Bingo deratyzacji</title>
+    <title>Bingo</title>
 </head>
 <body>
-    <h1 id="title">Bingo</h1>
-    <section id="bingo"></section>
+    <h1 class="title" >Bingo</h1>
+    <p id="player-information"></p>
+    <section id="bingo" class="bingo"></section>
+
+    <aside class="modal-overflow active" id="modal">
+        <h1 class="title" >Bingo</h1>
+        <div class="new-game">
+            <h2 class="new-game__title"> Podaj nick</h2>
+            <input type="text" class="new-game__input" id="nick-input"/>
+            <button class="new-game__button" id="start-button">Start</button>
+        </div>
+    </aside>
     <script src="./game.js" type="module" ></script>
+    <script src="./modals.js" type="module"></script>
 </body>
 </html>
