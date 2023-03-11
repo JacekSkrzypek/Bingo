@@ -168,6 +168,80 @@ body {
   font-size: 1.3rem;
 }
 
+.button-group { 
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  bottom: 1rem;
+}
+
+.modal-overflow {
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.button-group__button {
+  visibility: hidden;
+  width: 6.5rem;
+  height: 2.5rem;
+  font-size: 1.1rem;
+  background: rgba(126.5, 138.5, 255, 1);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+ 
+}
+
+#value-list {
+  position: relative;
+  height: 90%;
+  width: 90%;
+  background: #fff;
+  overflow: auto;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.3rem;
+  border-radius: 0.5rem;
+}
+
+#close-button{
+  position: absolute;
+  width: 2rem;
+  height: 1.6rem;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#close-button:hover > .close-icon  {
+  background: #ca4b4b;
+
+}
+
+.close-icon {
+  width: 100%;
+  height: 0.3rem;
+  background: #444;
+  position: absolute;
+  display: block;
+  top:50%;
+}
+
+.close-icon:first-child {
+  transform: rotate(45deg);
+}
+
+.close-icon:last-child {
+  transform: rotate(-45deg);
+}
 
 .active {
   visibility: visible;
@@ -176,13 +250,13 @@ body {
 @media screen and (min-width: 500px) {
   #bingo {
     padding: 2rem;
-    max-width: 80rem;
+    max-width: 60rem;
     border: none;
   }
 
   .element {
     font-size: 1.5rem;
-    min-height: 8rem;
+    height: 6rem;
   }
 
   #title {
@@ -190,8 +264,18 @@ body {
   }
 
   .new-game {
-    max-width: 22rem;
+    padding: 1.5rem;
+    max-width: 23rem;
+    height: 12rem;
   }
 
+  .button-group {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  #value-list {
+    width: 40rem;
+  }
 }
 

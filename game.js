@@ -28,9 +28,7 @@ export const CreateBingo = () => {
     } else if (i === columns * columns - 1) {
       element.classList.add("element--fourth-edge");
     }
-  
     
-  
     const value = document.createElement("p");
     value.classList.add("value");
     value.innerText = bingoValues[getValue()];
