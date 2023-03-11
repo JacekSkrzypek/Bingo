@@ -8,8 +8,11 @@
     <title>Bingo</title>
 </head>
 <body>
-    <h1 class="title" >Bingo</h1>
-    <p id="player-information"></p>
+    <header id="header" class="header">
+        <h1 class="title" >Bingo</h1>
+        <p id="player-information"></p>
+    </header>
+    
     <section id="bingo" class="bingo"></section>
 
     <aside class="modal-overflow active" id="new-game-modal">
@@ -31,8 +34,17 @@
             </button>
             <h2>Baza bingo</h2>
         </div>
-        
     </aside>
+
+    <aside class="modal-overflow" id="confirm-modal">
+        <div class="confirm">
+            <h2 class="confirm__text">Czy na pewno chcesz zrestartować grę?</h2>
+            <div class="confirm__button-group">
+                <button class="confirm__button confirm__yes" id="confirm-yes">Tak</button>
+                <button class="confirm__button confirm__no" id="confirm-no">Nie</button>
+            </div>
+        </div>
+    </aside> 
 
     <div class="button-group">
         <button class="button-group__button button--restart-game" id="restart-game">Restart gry</button>

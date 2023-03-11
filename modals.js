@@ -9,10 +9,16 @@ const showValuesButton = document.getElementById("show-values");
 const input = document.getElementById("nick-input");
 const playerInformation = document.getElementById("player-information");
 const closeButton = document.getElementById("close-button");
+const confirmNoButton = document.getElementById("confirm-no");
+const confirmYesButton = document.getElementById("confirm-yes");
+const header = document.getElementById("header");
 
 startButton.addEventListener("click", () => StartGame());
 showValuesButton.addEventListener("click", () => ShowValues());
 closeButton.addEventListener("click", () => HideValues());
+restartButton.addEventListener("click", () => ShowConfirmModal());
+confirmNoButton.addEventListener("click", () => HideConfirmModal());
+confirmYesButton.addEventListener("click", () => RestartGame());
 
 if (specialTitle) {
   const elements = document.querySelectorAll(".title");
@@ -31,6 +37,7 @@ function StartGame() {
   const nick = input.value;
   playerInformation.textContent = `${nick} ${time}`;
 
+  header.classList.add("active");
   newGameModal.classList.remove("active");
   bingo.classList.add("active");
   CreateBingo();
@@ -65,4 +72,25 @@ function HideValues () {
     const valueList = document.getElementById("value-list");
     valueList.classList.remove("active");
     showButtons();
+}
+
+function ShowConfirmModal () {
+  const confirmModal = document.getElementById("confirm-modal");
+  confirmModal.classList.add("active");
+
+  hideButtons();
+}
+
+function HideConfirmModal () {
+  const confirmModal = document.getElementById("confirm-modal");
+  confirmModal.classList.remove("active");
+  showButtons();
+}
+
+function RestartGame () {
+  bingo.classList.remove("active");
+  newGameModal.classList.add("active");
+  header.classList.remove("active");
+  HideConfirmModal();
+  hideButtons();
 }

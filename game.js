@@ -4,6 +4,7 @@ const usedNumbers = [];
 const winning = [];
 
 export const CreateBingo = () => {
+  removeAllElements();
   const bingo = document.getElementById("bingo");
   
   bingo.style.setProperty(
@@ -125,6 +126,14 @@ function selectWinningElements(winningId) {
     const element = document.getElementById(id);
     element.classList.add("element--winning");
   }
+}
+
+function removeAllElements () {
+  const elements = document.querySelectorAll(".element");
+  console.log(elements)
+  if(elements) {
+  usedNumbers.length = 0;
+  elements.forEach(element => element.remove());}
 }
 
 
