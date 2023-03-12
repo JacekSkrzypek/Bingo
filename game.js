@@ -1,17 +1,26 @@
 import { columns, bingoValues } from "./constants.js";
 
 const usedNumbers = [];
-const winning = [];
+let loadedValues = [];
+const game = {
+  player: "",
+  loadedValues: [],
+};
 
 export const CreateBingo = () => {
   removeAllElements();
+
   const bingo = document.getElementById("bingo");
-  
+
   bingo.style.setProperty(
     "grid-template-columns",
     "repeat(" + columns + ", 1fr )"
   );
-  
+
+  if (localStorage.getItem("game")) {
+    loadedValues = JSON.parse(localStorage.getItem("game")).loadedValues;
+  }
+
   for (let i = 0; i < columns * columns; i++) {
     const element = document.createElement("div");
     element.classList.add("element");
@@ -19,8 +28,8 @@ export const CreateBingo = () => {
     element.addEventListener("click", () => {
       clickElement(i);
     });
-  
-    if(i === 0) {
+
+    if (i === 0) {
       element.classList.add("element--first-edge");
     } else if (i === columns - 1) {
       element.classList.add("element--second-edge");
@@ -29,27 +38,38 @@ export const CreateBingo = () => {
     } else if (i === columns * columns - 1) {
       element.classList.add("element--fourth-edge");
     }
-    
+
     const value = document.createElement("p");
     value.classList.add("value");
-    value.innerText = bingoValues[getValue()];
-  
+    value.innerText = bingoValues[getValue(i)];
+
     element.append(value);
     bingo.append(element);
   }
-}
 
+  if (loadedValues.length === 0) {
+    const playerInformation = document.getElementById("player-information");
+    console.log(playerInformation.textContent)
+    game.player = playerInformation.textContent;
+    localStorage.setItem("game", JSON.stringify(game));
+  }
+};
 
-
-function getValue() {
+function getValue(id) {
   const elementsLength = bingoValues.length;
-  
-  while (usedNumbers.length < elementsLength) {
-    const value = Math.floor(Math.random() * elementsLength);
 
-    if (!usedNumbers.includes(value)) {
+  while (usedNumbers.length < elementsLength) {
+    if (loadedValues.length === 0) {
+      const value = Math.floor(Math.random() * elementsLength);
+
+      if (!usedNumbers.includes(value)) {
         usedNumbers.push(value);
+        game.loadedValues.push(bingoValues[value]);
         return value;
+      }
+    } else {
+      const value = bingoValues.indexOf(loadedValues[id]);
+      return value;
     }
   }
 }
@@ -59,8 +79,9 @@ function clickElement(id) {
 
   if (element.classList.contains("element--selected")) {
     element.classList.remove("element--selected");
-    if(element.classList.contains("element--winning")) {
-      element.classList.remove("element--winning");}
+    if (element.classList.contains("element--winning")) {
+      element.classList.remove("element--winning");
+    }
   } else {
     element.classList.add("element--selected");
   }
@@ -116,8 +137,11 @@ function checkGame() {
 function selectWinningElements(winningId) {
   for (let i = 0; i < columns * columns; i++) {
     const element = document.getElementById(i);
-    if(element.classList.contains("element--winning") && !winningId.includes[i]) {
-        element.classList.remove("element--winning");
+    if (
+      element.classList.contains("element--winning") &&
+      !winningId.includes[i]
+    ) {
+      element.classList.remove("element--winning");
     }
   }
 
@@ -128,13 +152,15 @@ function selectWinningElements(winningId) {
   }
 }
 
-function removeAllElements () {
+function removeAllElements() {
   const elements = document.querySelectorAll(".element");
-  console.log(elements)
-  if(elements) {
-  usedNumbers.length = 0;
-  elements.forEach(element => element.remove());}
+  if (elements) {
+    usedNumbers.length = 0;
+    elements.forEach((element) => element.remove());
+  }
 }
 
-
-
+export function clearLoadedValues() {
+  loadedValues = [];
+  localStorage.clear();
+}
