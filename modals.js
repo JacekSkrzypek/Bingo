@@ -26,6 +26,13 @@ if (!localStorage.getItem("game")) {
   StartGame();
 }
 
+const valueList = document.getElementById("value-list");
+bingoValues.forEach((value, id) => {
+  const element = document.createElement("p");
+  element.textContent = `${id}: ${value}`;
+
+  valueList.append(element);
+});
 
 if (specialTitle) {
   const elements = document.querySelectorAll(".title");
@@ -43,8 +50,8 @@ function StartGame() {
 
   let player;
 
-  if(localStorage.getItem("game")) {
-    player = JSON.parse(localStorage.getItem("game")).player
+  if (localStorage.getItem("game")) {
+    player = JSON.parse(localStorage.getItem("game")).player;
   } else {
     player = `${input.value} ${time}`;
   }
@@ -69,17 +76,8 @@ function showButtons() {
 }
 
 function ShowValues() {
-  const valueListModal = document.getElementById("value-list-modal");
-  const valueList = document.getElementById("value-list");
   valueList.classList.add("active");
   hideButtons();
-
-  bingoValues.forEach((value, id) => {
-    const element = document.createElement("p");
-    element.textContent = `${id}: ${value}`;
-
-    valueList.append(element);
-  });
 }
 
 function HideValues() {

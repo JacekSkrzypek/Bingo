@@ -43,32 +43,59 @@ export const CreateBingo = () => {
     value.classList.add("value");
     value.innerText = bingoValues[getValue(i)];
 
+    if(localStorage.getItem("game")) {
+      const localElements = JSON.parse(localStorage.getItem("game"));
+      if(localElements.loadedValues[i].status) {
+        const statuses = localElements.loadedValues[i].status.replace(/^\s+/g, '').split(" ");
+        statuses.forEach(status => {
+          element.classList.add(status);
+        })
+      }
+    }
+
+
+
     element.append(value);
     bingo.append(element);
   }
 
-  if (loadedValues.length === 0) {
-    const playerInformation = document.getElementById("player-information");
-    console.log(playerInformation.textContent)
-    game.player = playerInformation.textContent;
-    localStorage.setItem("game", JSON.stringify(game));
-  }
+  changeLocalStorage();
 };
+
+function changeLocalStorage () {
+  const playerInformation = document.getElementById("player-information");
+  game.player = playerInformation.textContent;
+  
+  for (let i = 0; i < columns * columns; i++) {
+    const element = document.getElementById(i);
+    let status = "";
+    if(element.classList) {
+    for (let j = 1; j < element.classList.length; j++) {
+      status = status + " " + element.classList[j].replace(/^\s+/g, '');
+    }
+    loadedValues[i].status = status
+    }
+  }
+
+  game.loadedValues = loadedValues;
+  localStorage.setItem("game", JSON.stringify(game));
+}
 
 function getValue(id) {
   const elementsLength = bingoValues.length;
 
   while (usedNumbers.length < elementsLength) {
-    if (loadedValues.length === 0) {
+    if (!localStorage.getItem("game")) {
       const value = Math.floor(Math.random() * elementsLength);
 
       if (!usedNumbers.includes(value)) {
         usedNumbers.push(value);
-        game.loadedValues.push(bingoValues[value]);
+        game.loadedValues.push({value: bingoValues[value], status: ""});
+        loadedValues.push({value: bingoValues[value], status: ""})
         return value;
       }
     } else {
-      const value = bingoValues.indexOf(loadedValues[id]);
+      const value = bingoValues.indexOf(loadedValues[id].value);
       return value;
     }
   }
@@ -86,6 +113,9 @@ function clickElement(id) {
     element.classList.add("element--selected");
   }
   checkGame();
+
+  changeLocalStorage();
+
 }
 
 function checkGame() {
@@ -142,6 +172,7 @@ function selectWinningElements(winningId) {
       !winningId.includes[i]
     ) {
       element.classList.remove("element--winning");
+      
     }
   }
 
@@ -150,6 +181,8 @@ function selectWinningElements(winningId) {
     const element = document.getElementById(id);
     element.classList.add("element--winning");
   }
+  game.loadedValues = loadedValues;
+  localStorage.setItem("game", JSON.stringify(game));
 }
 
 function removeAllElements() {
